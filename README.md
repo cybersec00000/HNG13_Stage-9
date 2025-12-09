@@ -1,4 +1,4 @@
-# HNG13_STAGE-9 TAK - Wallet Service with Paystack, JWT & API Keys
+# HNG13_STAGE-9 TASK - Wallet Service with Paystack, JWT & API Keys
 
 # 💰 Wallet Service API
 
@@ -88,8 +88,8 @@ Before you begin, ensure you have the following installed:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/wallet-service.git
-   cd wallet-service
+   git clone https://github.com/PaulsCreate/HNG13_Stage-9.git
+   cd HNG13_Stage-9.git
    ```
 
 2. **Install dependencies**
@@ -97,14 +97,14 @@ Before you begin, ensure you have the following installed:
    ```bash
    npm install
    # or
-   yarn install
+   pnpm install
    ```
 
 3. **Set up the database**
 
    ```bash
    # Create PostgreSQL database
-   createdb wallet_db
+   createdb wallet_service
    ```
 
 4. **Configure environment variables**
