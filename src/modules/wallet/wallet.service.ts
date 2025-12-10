@@ -87,7 +87,7 @@ export class WalletService {
       const transaction = await queryRunner.manager.findOne(Transaction, {
         where: { reference },
         relations: ['wallet'],
-        lock: { mode: 'pessimistic_write' }, // Lock to prevent race conditions
+        // lock: { mode: 'pessimistic_write' }, // Lock to prevent race conditions
       });
 
       if (!transaction) {
