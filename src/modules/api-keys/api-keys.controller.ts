@@ -41,9 +41,9 @@ export class ApiKeysController {
 - **transfer** - Transfer funds (includes read)
 
 ### Expiry Options:
-- **1M** - 1 month
-- **3M** - 3 months  
-- **6M** - 6 months
+- **1H** - 1 hour
+- **1D** - 1 day
+- **1M** - 1 month    
 - **1Y** - 1 year
 
 ### Important:
