@@ -26,38 +26,39 @@ export class PaystackService {
     this.secretKey = this.configService.get('PAYSTACK_SECRET_KEY');
   }
 
-async initializeTransaction(
-  email: string,
-  amount: number,
-  reference: string,
-): Promise<InitializePaymentResponse> {
-  try {
-    const response = await firstValueFrom(
-      this.httpService.post(
-        `${this.baseUrl}/transaction/initialize`,
-        {
-          email,
-          amount: amount * 100,
-          reference,
-          callback_url: `${this.configService.get('BACKEND_URL')}/paystack/callback`, // Changed this
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${this.secretKey}`,
-            'Content-Type': 'application/json',
+  async initializeTransaction(
+    email: string,
+    amount: number,
+    reference: string,
+  ): Promise<InitializePaymentResponse> {
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post(
+          `${this.baseUrl}/transaction/initialize`,
+          {
+            email,
+            amount: amount * 100,
+            reference,
+            callback_url: `${this.configService.get('BACKEND_URL')}/paystack/callback`,
           },
-        },
-      ),
-    );
+          {
+            headers: {
+              Authorization: `Bearer ${this.secretKey}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        ),
+      );
 
-    return response.data;
-  } catch (error) {
-    throw new BadRequestException(
-      'Failed to initialize Paystack transaction: ' +
-        error.response?.data?.message || error.message,
-    );
+      return response.data;
+    } catch (error) {
+      throw new BadRequestException(
+        'Failed to initialize Paystack transaction: ' +
+          error.response?.data?.message || error.message,
+      );
+    }
   }
-}
+
   async verifyTransaction(reference: string): Promise<any> {
     try {
       const response = await firstValueFrom(

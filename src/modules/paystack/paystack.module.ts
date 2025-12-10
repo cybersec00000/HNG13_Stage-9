@@ -12,7 +12,7 @@ import { Wallet } from '../../entities/wallet.entity';
     TypeOrmModule.forFeature([Transaction, Wallet]),
   ],
   providers: [PaystackService],
-  controllers: [PaystackController], // Add this
+  controllers: [PaystackController],
   exports: [PaystackService],
 })
 export class PaystackModule {}

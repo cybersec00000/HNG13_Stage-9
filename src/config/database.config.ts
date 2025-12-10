@@ -1,4 +1,3 @@
-// src/config/database.config.ts
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { User } from '../entities/user.entity';
@@ -10,11 +9,8 @@ export const getDatabaseConfig = (
   configService: ConfigService,
 ): TypeOrmModuleOptions => {
   const isProduction = configService.get('NODE_ENV') === 'production';
-
-  // Common entities
   const entities = [User, Wallet, Transaction, ApiKey];
 
-  // For Railway/Heroku/Render using DATABASE_URL
   const databaseUrl = configService.get('DATABASE_URL');
   
   if (databaseUrl) {
@@ -23,18 +19,17 @@ export const getDatabaseConfig = (
       url: databaseUrl,
       entities,
       migrations: ['dist/migrations/*{.ts,.js}'],
-      synchronize: false, // ALWAYS false when using migrations
+      synchronize: false,
       ssl: isProduction ? { rejectUnauthorized: false } : false,
       logging: !isProduction,
-      migrationsRun: true, // Auto-run migrations on startup
+      migrationsRun: true,
       extra: {
-        max: 10, // Maximum connection pool size
+        max: 10,
         connectionTimeoutMillis: 10000,
       },
     };
   }
 
-  // For manual DB configuration (development)
   return {
     type: 'postgres',
     host: configService.get('DATABASE_HOST', 'localhost'),
@@ -44,10 +39,10 @@ export const getDatabaseConfig = (
     database: configService.get('DATABASE_NAME'),
     entities,
     migrations: ['dist/migrations/*{.ts,.js}'],
-    synchronize: false, // Only true in development
+    synchronize: !isProduction,
     ssl: false,
     logging: true,
-    migrationsRun: !isProduction, // Auto-run in dev, manual in prod
+    migrationsRun: !isProduction,
     extra: {
       max: 10,
       connectionTimeoutMillis: 10000,

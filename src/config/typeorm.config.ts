@@ -1,7 +1,6 @@
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 
-// Load environment variables
 config();
 
 export default new DataSource({
@@ -15,7 +14,4 @@ export default new DataSource({
   migrations: ['src/migrations/*{.ts,.js}'],
   synchronize: false,
   logging: true,
-  ssl: process.env.NODE_ENV === 'production' 
-    ? { rejectUnauthorized: false } 
-    : false,
 });
